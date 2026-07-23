@@ -1,7 +1,13 @@
+-- ============================================================
+-- LSP CONFIGURATION — lua/configs/lspconfig.lua
+-- Servers: Lua, HTML, CSS, TypeScript, Tailwind, ESLint, Go
+-- ============================================================
+
 local nvlsp = require "nvchad.configs.lspconfig"
 
-nvlsp.defaults() -- loads nvchad default lsp options
+nvlsp.defaults()
 
+-- ── Web & Lua servers (default config) ──────────────────────
 local servers = {
   "html",
   "cssls",
@@ -11,14 +17,20 @@ local servers = {
   "eslint",
 }
 
--- lsps with default config
 for _, lsp in ipairs(servers) do
+  vim.lsp.config(lsp, {
+    on_attach = nvlsp.on_attach,
+    on_init = nvlsp.on_init,
+    capabilities = nvlsp.capabilities,
+  })
   vim.lsp.enable(lsp)
 end
 
--- Configure gopls
+-- ── Go (gopls — custom: disable built-in formatting) ────────
+-- Formatting is handled by conform.nvim (goimports-reviser + gofumpt + golines)
 vim.lsp.config("gopls", {
-  on_attach = function(client, _)
+  on_attach = function(client, bufnr)
+    nvlsp.on_attach(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
   end,
