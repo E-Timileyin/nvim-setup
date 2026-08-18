@@ -8,6 +8,8 @@
 -- near-black bar above the buffer area.
 local bg = "#1E2B23"
 local tab_bg = "#2C4033"
+local border = "#5C6452"
+local purple = "#5CC2D9"
 
 require("bufferline").setup {
   options = {
@@ -20,13 +22,18 @@ require("bufferline").setup {
       {
         filetype = "NvimTree",
         text = "File Explorer",
-        highlight = "Directory",
+        -- A table (not a string like "Directory") makes bufferline generate
+        -- its own highlight group with an explicit bg, instead of falling
+        -- back to Directory's unset bg, which is a second source of the
+        -- same auto-darkened patch fixed below for the rest of the tab bar.
+        highlight = { fg = purple, bg = bg },
         separator = true,
       },
     },
   },
   highlights = {
     fill = { bg = bg },
+    offset_separator = { fg = border, bg = bg },
     background = { bg = tab_bg },
     tab = { bg = tab_bg },
     tab_close = { bg = tab_bg },
