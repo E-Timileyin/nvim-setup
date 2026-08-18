@@ -4,12 +4,10 @@
 --
 -- Design principles:
 --   - Vim-native motions everywhere (h/j/k/l)
---   - Leader groups are mnemonic: g=git, f=find, h=harpoon
+--   - Leader groups are mnemonic: f=find, g=git, h=harpoon
 --   - [x / ]x brackets for prev/next navigation
 --   - Ctrl+hjkl for window navigation (matches tmux Alt+hjkl)
 -- ============================================================
-
-require "nvchad.mappings"
 
 local map = vim.keymap.set
 
@@ -17,6 +15,19 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>", { desc = "File Save" })
+map("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
+map("t", "<C-x>", "<C-\\><C-N>", { desc = "Escape terminal mode" })
+map("n", "<leader>b", "<cmd> enew <CR>", { desc = "New buffer" })
+map("n", "<leader>ya", "<cmd> %y+ <CR>", { desc = "Yank whole file" })
+
+-- ── Buffers ─────────────────────────────────────────────────
+map("n", "<Tab>", "<cmd> bnext <CR>", { desc = "Next buffer" })
+map("n", "<S-Tab>", "<cmd> bprevious <CR>", { desc = "Previous buffer" })
+map("n", "<leader>x", "<cmd> bd <CR>", { desc = "Close buffer" })
+
+-- ── File Explorer ───────────────────────────────────────────
+map("n", "<C-n>", "<cmd> NvimTreeToggle <CR>", { desc = "Toggle file explorer" })
+map("n", "<leader>e", "<cmd> NvimTreeFocus <CR>", { desc = "Focus file explorer" })
 
 -- ── Better Indenting (stay in visual mode after indent) ─────
 map("v", "<", "<gv", { desc = "Indent left" })
@@ -25,9 +36,6 @@ map("v", ">", ">gv", { desc = "Indent right" })
 -- ── Move Text Up/Down (visual mode) ────────────────────────
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
-
--- ── Clear Search Highlights ─────────────────────────────────
-map("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
 
 -- ── Window Navigation (seamless nvim splits <-> tmux panes) ─
 -- vim-tmux-navigator: at the edge of nvim, jumps to the next
@@ -63,6 +71,12 @@ map("n", "<leader>fm", function()
 end, { desc = "Format file" })
 
 -- ── Telescope / Find (leader + f) ──────────────────────────
+map("n", "<leader>ff", "<cmd> Telescope find_files <CR>", { desc = "Find files" })
+map("n", "<leader>fw", "<cmd> Telescope live_grep <CR>", { desc = "Live grep" })
+map("n", "<leader>fb", "<cmd> Telescope buffers <CR>", { desc = "Find buffers" })
+map("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", { desc = "Help tags" })
+map("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", { desc = "Recent files" })
+map("n", "<leader>ma", "<cmd> Telescope marks <CR>", { desc = "Marks" })
 map("n", "<leader>fs", "<cmd> Telescope lsp_document_symbols <CR>", { desc = "LSP document symbols" })
 map("n", "<leader>fS", "<cmd> Telescope lsp_workspace_symbols <CR>", { desc = "LSP workspace symbols" })
 map("n", "<leader>fd", "<cmd> Telescope diagnostics <CR>", { desc = "Telescope diagnostics" })
@@ -91,5 +105,6 @@ map("n", "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc
 map("n", "<leader>gb", function() require("gitsigns").blame_line { full = true } end, { desc = "Git blame line" })
 map("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Git stage hunk" })
 map("n", "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc = "Git reset hunk" })
+map("n", "<leader>gt", "<cmd> Telescope git_status <CR>", { desc = "Git status (telescope)" })
 map("n", "]h", function() require("gitsigns").nav_hunk "next" end, { desc = "Next git hunk" })
 map("n", "[h", function() require("gitsigns").nav_hunk "prev" end, { desc = "Previous git hunk" })

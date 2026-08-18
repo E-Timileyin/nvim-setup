@@ -1,9 +1,29 @@
 -- ============================================================
 -- PLUGINS — lua/plugins/init.lua
--- Managed by lazy.nvim | NvChad v2.5
+-- Managed by lazy.nvim | Vanilla Neovim (no framework)
 -- ============================================================
 
 return {
+  -- ── Icons (dependency for tree/statusline/bufferline) ─────
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+
+  -- ── Completion (LSP + buffer + path + snippets) ───────────
+  {
+    "hrsh7th/nvim-cmp",
+    event = { "InsertEnter", "CmdlineEnter" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+    },
+    config = function()
+      require "configs.cmp"
+    end,
+  },
+
   -- ── Formatting (auto-format on save) ──────────────────────
   {
     "stevearc/conform.nvim",
@@ -15,6 +35,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       require "configs.lspconfig"
     end,
@@ -53,10 +74,69 @@ return {
   -- ── Treesitter (syntax highlighting & parsing) ────────────
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     event = { "BufReadPre", "BufNewFile" },
+    build = ":TSUpdate",
     config = function()
       require "configs.treesitter"
     end,
+  },
+
+  -- ── File explorer ──────────────────────────────────────────
+  {
+    "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require "configs.nvimtree"
+    end,
+  },
+
+  -- ── Fuzzy finder ────────────────────────────────────────────
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require "configs.telescope"
+    end,
+  },
+
+  -- ── Git signs, hunks, blame ─────────────────────────────────
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "configs.gitsigns"
+    end,
+  },
+
+  -- ── Statusline ──────────────────────────────────────────────
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require "configs.lualine"
+    end,
+  },
+
+  -- ── Buffer tabs ─────────────────────────────────────────────
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require "configs.bufferline"
+    end,
+  },
+
+  -- ── Indent guides ───────────────────────────────────────────
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
   },
 
   -- ── Auto-close pairs: (), {}, [], "", '' ──────────────────

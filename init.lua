@@ -1,7 +1,7 @@
 -- ============================================================
 -- NEOVIM INIT — init.lua
--- Framework: NvChad v2.5 | Plugin Manager: lazy.nvim
--- Theme: Aura Dracula Spirit (Soft)
+-- Vanilla Neovim | Plugin Manager: lazy.nvim
+-- Theme: Aura Dracula Spirit (Soft) — colors/aura.lua
 -- ============================================================
 
 -- Enable bytecode caching for faster startup
@@ -10,8 +10,8 @@ if vim.loader then
 end
 
 -- ── Core Settings ───────────────────────────────────────────
-vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Add Mason (LSP installer) and Go binaries to PATH
 vim.env.PATH = vim.fn.stdpath "data" .. "/mason/bin:" .. vim.env.HOME .. "/go/bin:" .. vim.env.PATH
@@ -27,27 +27,16 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local lazy_config = require "configs.lazy"
-
--- ── Load Plugins ────────────────────────────────────────────
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-  },
-
-  { import = "plugins" },
-}, lazy_config)
-
--- ── Load Theme ──────────────────────────────────────────────
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-
 -- ── Load User Config ────────────────────────────────────────
 require "options"
 require "autocmds"
+
+-- ── Load Plugins ────────────────────────────────────────────
+local lazy_config = require "configs.lazy"
+require("lazy").setup({ { import = "plugins" } }, lazy_config)
+
+-- ── Load Theme ──────────────────────────────────────────────
+vim.cmd.colorscheme "aura"
 
 vim.schedule(function()
   require "mappings"

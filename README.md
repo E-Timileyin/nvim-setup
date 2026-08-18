@@ -1,16 +1,22 @@
-# 🚀 NvChad Custom Configuration
+# 🚀 Neovim Configuration
 
-A highly optimized Neovim configuration built on top of **NvChad v2.5**, tailored for Fullstack Development (Go, Next.js, React, TypeScript, and Tailwind CSS).
+A vanilla Neovim configuration (no framework — managed directly with `lazy.nvim`), tailored for
+Fullstack Development (Go, Next.js, React, TypeScript, and Tailwind CSS). Themed with
+**Aura Dracula Spirit (Soft)**, unified across kitty + tmux + nvim.
 
 ## 🛠️ Features
 - **Performance Optimized:** Uses `vim.loader` for fast startup.
-- **Modern LSP:** Fully migrated to Neovim 0.11+ `vim.lsp.config` and `vim.lsp.enable` APIs.
+- **Modern LSP:** Neovim 0.11+ `vim.lsp.config` and `vim.lsp.enable` APIs.
 - **Fullstack Support:** Pre-configured for Go, TypeScript/JSX, Tailwind CSS, ESLint, Lua, HTML, and CSS.
 - **Formatting:** Auto-format on save via `conform.nvim`.
   - **Frontend:** `prettier` (JS/TS/React, JSON, HTML, CSS)
   - **Lua:** `stylua`
   - **Go:** `goimports-reviser`, `gofumpt`, `golines`
-- **Syntax Highlighting:** Enhanced treesitter configurations.
+- **Completion:** `nvim-cmp` (LSP, buffer, path, snippets via LuaSnip).
+- **Syntax Highlighting:** Treesitter (`master` branch — legacy config API).
+- **File explorer, fuzzy finder, statusline, buffer tabs:** `nvim-tree`, `telescope`, `lualine`, `bufferline`.
+- **Seamless tmux navigation:** `Ctrl/Alt+hjkl` move across nvim splits and tmux panes as one grid.
+- **Copilot** inline suggestions, **Harpoon** quick file switching, **Undotree**, **git hunks**.
 
 ---
 
@@ -26,23 +32,47 @@ A highly optimized Neovim configuration built on top of **NvChad v2.5**, tailore
    git clone <your-repo-url> ~/.config/nvim
    ```
 
-3. **Install Language Servers & Formatters:**
+3. **Launch Neovim.** `lazy.nvim` bootstraps itself and installs all plugins on first run;
+   Treesitter parsers compile automatically (needs `cc`/`gcc` on `$PATH`).
+
+4. **Install Language Servers & Formatters:**
    Open Neovim and run:
    ```vim
-   :MasonInstall ts_ls tailwindcss-language-server eslint-lsp prettier gopls goimports-reviser stylua html-lsp css-lsp
+   :MasonInstallAll
+   ```
+   or manually:
+   ```vim
+   :MasonInstall lua-language-server html-lsp css-lsp typescript-language-server tailwindcss-language-server eslint-lsp gopls stylua prettier goimports-reviser gofumpt golines
    ```
 
 ---
 
 ## 🔌 Plugins
 
-Core plugins configured in `lua/plugins/init.lua`:
+Configured in `lua/plugins/init.lua`:
 
 | Plugin | Purpose |
 | :--- | :--- |
-| **stevearc/conform.nvim** | formatting (Auto-format on save enabled) |
+| **stevearc/conform.nvim** | Formatting (auto-format on save) |
 | **neovim/nvim-lspconfig** | LSP configurations |
-| **nvim-treesitter/nvim-treesitter** | Syntax highlighting |
+| **williamboman/mason.nvim** | LSP/formatter installer |
+| **nvim-treesitter/nvim-treesitter** (`master`) | Syntax highlighting |
+| **hrsh7th/nvim-cmp** + LuaSnip | Completion |
+| **nvim-tree/nvim-tree.lua** | File explorer |
+| **nvim-telescope/telescope.nvim** | Fuzzy finder |
+| **lewis6991/gitsigns.nvim** | Git hunks, blame, staging |
+| **nvim-lualine/lualine.nvim** | Statusline |
+| **akinsho/bufferline.nvim** | Buffer tabs |
+| **lukas-reineke/indent-blankline.nvim** | Indent guides |
+| **windwp/nvim-autopairs**, **nvim-ts-autotag** | Auto-closing pairs/tags |
+| **mattn/emmet-vim** | HTML/JSX expansion |
+| **folke/todo-comments.nvim** | TODO/FIXME highlighting & search |
+| **ThePrimeagen/harpoon** (`harpoon2`) | Quick file switcher |
+| **mbbill/undotree** | Visual undo history |
+| **christoomey/vim-tmux-navigator** | Seamless nvim/tmux pane navigation |
+| **zbirenbaum/copilot.lua** | Inline AI suggestions |
+
+There is no dashboard/start screen — Neovim opens straight to an empty buffer.
 
 ---
 
@@ -58,14 +88,17 @@ The **Leader key** is set to `Space`.
 | `Ctrl + s` | N/I/V | **Save File** |
 | `<leader> + fm` | Normal | **Format Document** |
 | `<Esc>` | Normal | Clear Search Highlights |
+| `<leader> + b` | Normal | New Buffer |
+| `<leader> + ya` | Normal | Yank Whole File |
+| `gc` / `gcc` | N/V | Toggle Comment (native Neovim 0.10+) |
 
-### 🪟 Window Management
+### 🪟 Window & Buffer Management
 | Key | Action |
 | :--- | :--- |
-| `Ctrl + h` | Move to Left Window |
-| `Ctrl + l` | Move to Right Window |
-| `Ctrl + j` | Move to Bottom Window |
-| `Ctrl + k` | Move to Top Window |
+| `Ctrl/Alt + h` | Move to Left Window (crosses into tmux pane) |
+| `Ctrl/Alt + l` | Move to Right Window (crosses into tmux pane) |
+| `Ctrl/Alt + j` | Move to Bottom Window (crosses into tmux pane) |
+| `Ctrl/Alt + k` | Move to Top Window (crosses into tmux pane) |
 | `<leader> + x` | Close Current Buffer |
 | `Tab` | Next Buffer |
 | `Shift + Tab` | Previous Buffer |
@@ -77,9 +110,8 @@ The **Leader key** is set to `Space`.
 | `>` | Visual | Indent Right (stays in selection) |
 | `J` | Visual | Move selected block **Down** |
 | `K` | Visual | Move selected block **Up** |
-| `<leader> + /` | N/V | Toggle Comment |
 
-### 📂 File & Project Navigation (Standard NvChad)
+### 📂 File & Project Navigation
 | Key | Action |
 | :--- | :--- |
 | `Ctrl + n` | Toggle File Tree (NvimTree) |
@@ -88,9 +120,8 @@ The **Leader key** is set to `Space`.
 | `<leader> + fw` | Live Grep (Search text in project) |
 | `<leader> + fb` | Find Buffers |
 | `<leader> + fh` | Help Tags |
-| `<leader> + fo` | Find Old History |
-| `<leader> + fz` | Find in Current Buffer |
-| `<leader> + fa` | Find All (Hidden Files) |
+| `<leader> + fo` | Recent Files |
+| `<leader> + ma` | Marks |
 
 ### 🔍 LSP & Diagnostics
 | Key | Action |
@@ -100,39 +131,69 @@ The **Leader key** is set to `Space`.
 | `<leader> + q` | Open Diagnostic List (Loclist) |
 | `gd` | Go to Definition |
 | `gD` | Go to Declaration |
+| `gr` | References |
 | `K` | Hover Documentation |
 | `gi` | Go to Implementation |
-| `<leader> + ra` | Rename Symbol |
+| `<leader> + rn` | Rename Symbol |
 | `<leader> + ca` | Code Action |
-| `<leader> + wa` | Add Workspace Folder |
-| `<leader> + wr` | Remove Workspace Folder |
-| `<leader> + wl` | List Workspace Folders |
+| `<leader> + sh` | Signature Help |
+| `<leader> + fs` | Document Symbols |
+| `<leader> + fS` | Workspace Symbols |
+| `<leader> + fd` | Telescope Diagnostics |
 
-### 💻 Terminal
-| Key | Mode | Action |
-| :--- | :--- | :--- |
-| `<leader> + h` | Normal | Toggle Horizontal Terminal |
-| `<leader> + v` | Normal | Toggle Vertical Terminal |
-| `<Alt> + i` | Normal | Toggle Floating Terminal |
-| `<Alt> + h` | Terminal | Toggle Horizontal Terminal |
-| `<Alt> + v` | Terminal | Toggle Vertical Terminal |
-| `<Alt> + i` | Terminal | Toggle Floating Terminal |
+### 🗂 Harpoon / Undotree / TODO
+| Key | Action |
+| :--- | :--- |
+| `<leader> + ha` | Harpoon: add file |
+| `<leader> + hh` | Harpoon: toggle menu |
+| `<leader> + 1..4` | Harpoon: jump to file 1-4 |
+| `<leader> + u` | Toggle Undotree |
+| `<leader> + ft` | Find TODOs (Telescope) |
+| `]t` / `[t` | Next/Previous TODO |
+
+### 🔀 Git (gitsigns)
+| Key | Action |
+| :--- | :--- |
+| `<leader> + gp` | Preview Hunk |
+| `<leader> + gb` | Blame Line |
+| `<leader> + gs` | Stage Hunk |
+| `<leader> + gr` | Reset Hunk |
+| `<leader> + gt` | Git Status (Telescope) |
+| `]h` / `[h` | Next/Previous Hunk |
+
+### 🤖 Copilot (insert mode)
+| Key | Action |
+| :--- | :--- |
+| `Ctrl + y` | Accept suggestion |
+| `Ctrl + t` | Accept word |
+| `Ctrl + ]` | Next suggestion |
+| `Ctrl + \` | Previous suggestion |
+| `Ctrl + e` | Dismiss |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-/home/eyiowuawi/.config/nvim/
-├── init.lua              # Bootstrap
+~/.config/nvim/
+├── init.lua                    # Bootstrap: lazy.nvim, options, plugins, colorscheme
+├── colors/
+│   └── aura.lua                # Aura Dracula Spirit (Soft) colorscheme (standalone)
 ├── lua/
-│   ├── chadrc.lua        # UI/Theme overrides
-│   ├── mappings.lua      # Custom Keybindings
-│   ├── options.lua       # Neovim options
-│   ├── configs/          # Component Configurations
-│   │   ├── conform.lua   # Formatter settings
-│   │   ├── lspconfig.lua # LSP servers (Go, TS, HTML, etc.)
-│   │   └── treesitter.lua
-│   └── plugins/          # Plugin Management
-│       └── init.lua      # Plugin List
+│   ├── mappings.lua             # Custom keybindings
+│   ├── options.lua              # Neovim options
+│   ├── autocmds.lua             # Autocommands (single-buffer mode)
+│   ├── configs/                 # Component configurations
+│   │   ├── conform.lua          # Formatter settings
+│   │   ├── lspconfig.lua        # LSP servers (Go, TS, HTML, etc.)
+│   │   ├── treesitter.lua       # Treesitter setup
+│   │   ├── cmp.lua               # Completion setup
+│   │   ├── nvimtree.lua          # File explorer setup
+│   │   ├── telescope.lua         # Fuzzy finder setup
+│   │   ├── gitsigns.lua          # Git signs setup
+│   │   ├── lualine.lua           # Statusline setup
+│   │   ├── bufferline.lua        # Buffer tabs setup
+│   │   └── lazy.lua              # lazy.nvim options (disabled built-ins)
+│   └── plugins/
+│       └── init.lua              # Plugin list
 ```

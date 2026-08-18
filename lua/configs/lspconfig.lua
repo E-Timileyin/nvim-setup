@@ -3,9 +3,11 @@
 -- Servers: Lua, HTML, CSS, TypeScript, Tailwind, ESLint, Go
 -- ============================================================
 
-local nvlsp = require "nvchad.configs.lspconfig"
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-nvlsp.defaults()
+local on_attach = function(_, bufnr)
+  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+end
 
 -- ── Web & Lua servers (default config) ──────────────────────
 local servers = {
@@ -19,9 +21,8 @@ local servers = {
 
 for _, lsp in ipairs(servers) do
   vim.lsp.config(lsp, {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
+    on_attach = on_attach,
+    capabilities = capabilities,
   })
   vim.lsp.enable(lsp)
 end
@@ -30,12 +31,11 @@ end
 -- Formatting is handled by conform.nvim (goimports-reviser + gofumpt + golines)
 vim.lsp.config("gopls", {
   on_attach = function(client, bufnr)
-    nvlsp.on_attach(client, bufnr)
+    on_attach(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
   end,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
+  capabilities = capabilities,
   cmd = { "gopls" },
   filetypes = { "go", "gomod", "gotmpl", "gowork" },
   root_dir = function(path)
@@ -53,3 +53,19 @@ vim.lsp.config("gopls", {
   },
 })
 vim.lsp.enable "gopls"
+
+-- ── Diagnostics ──────────────────────────────────────────────
+vim.diagnostic.config {
+  virtual_text = { prefix = "●" },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+}

@@ -1,6 +1,6 @@
 # Neovim Configuration Documentation
 
-> NvChad v2.5 on Neovim 0.11+ | Theme: catppuccin (customized to Aura Dracula Spirit)
+> Vanilla Neovim 0.11+ (managed with lazy.nvim, no framework) | Theme: Aura Dracula Spirit (Soft) — `colors/aura.lua`
 
 ---
 
@@ -29,19 +29,26 @@ nvim
 
 ```
 ~/.config/nvim/
-├── init.lua                    # Entry point: bootstraps lazy.nvim, loads NvChad + plugins
+├── init.lua                    # Entry point: bootstraps lazy.nvim, loads options + plugins + colorscheme
+├── colors/
+│   └── aura.lua                 # Aura Dracula Spirit (Soft) colorscheme (standalone, no plugin)
 ├── lua/
 │   ├── options.lua             # Vim options (clipboard, line numbers, undo, etc.)
 │   ├── autocmds.lua            # Auto-commands (single-tab buffer behavior)
 │   ├── mappings.lua            # All custom keybindings
-│   ├── chadrc.lua              # NvChad UI config (theme, dashboard, tabufline)
 │   ├── plugins/
 │   │   └── init.lua            # All plugin declarations (lazy.nvim specs)
 │   └── configs/
 │       ├── lazy.lua            # Lazy.nvim options (icons, disabled vim plugins)
 │       ├── lspconfig.lua       # LSP server configurations
 │       ├── conform.lua         # Formatter config (format on save)
-│       └── treesitter.lua      # Treesitter parser config
+│       ├── treesitter.lua      # Treesitter parser config
+│       ├── cmp.lua              # Completion (nvim-cmp) config
+│       ├── nvimtree.lua         # File explorer config
+│       ├── telescope.lua        # Fuzzy finder config
+│       ├── gitsigns.lua         # Git signs config
+│       ├── lualine.lua          # Statusline config
+│       └── bufferline.lua       # Buffer tabs config
 ```
 
 ---
@@ -50,18 +57,28 @@ nvim
 
 | Plugin | Purpose | Loads on |
 |--------|---------|----------|
-| **NvChad** | Base framework (UI, statusline, tabufline, nvim-tree, telescope, which-key, gitsigns, nvim-cmp) | Startup |
 | **nvim-lspconfig** | LSP server management | Opening a file |
 | **mason.nvim** | Auto-install LSP servers, formatters, linters | `:Mason` command |
 | **conform.nvim** | Format on save | Saving a file |
-| **nvim-treesitter** | Syntax highlighting + indentation | Opening a file |
+| **nvim-treesitter** (`master` branch) | Syntax highlighting + indentation | Opening a file |
+| **nvim-cmp** + LuaSnip | Completion (LSP, buffer, path, snippets) | Entering insert/cmdline mode |
+| **nvim-tree.lua** | File explorer | `Ctrl+n` / `Space e` |
+| **telescope.nvim** | Fuzzy finder | `:Telescope` commands |
+| **gitsigns.nvim** | Git hunks, blame, staging | Opening a file |
+| **lualine.nvim** | Statusline | Startup |
+| **bufferline.nvim** | Buffer tabs | Startup |
+| **indent-blankline.nvim** | Indent guides | Opening a file |
 | **nvim-autopairs** | Auto-close `()`, `{}`, `[]`, `""`, `''` | Entering insert mode |
 | **nvim-ts-autotag** | Auto-close + rename HTML/JSX tags | Opening a file |
 | **emmet-vim** | Fast HTML/JSX expansion (`div>ul>li*3`) | HTML/CSS/JSX/TSX/Vue/Svelte files |
 | **todo-comments.nvim** | Highlight + search TODO/FIXME/HACK | Opening a file |
 | **harpoon** | Pin and quick-switch between files | On demand |
 | **undotree** | Visual undo history tree | `:UndotreeToggle` |
+| **vim-tmux-navigator** | Seamless nvim split / tmux pane navigation | Startup |
 | **copilot.lua** | GitHub Copilot inline ghost text | Entering insert mode |
+
+There is no dashboard/start screen and no built-in theme switcher/cheatsheet — those were
+NvChad UI features, and this config no longer depends on NvChad.
 
 ---
 
@@ -146,7 +163,7 @@ nvim
 | `Space fm` | Format current file |
 | *(auto)* | Format on save is enabled by default |
 
-### Telescope (fuzzy finder — provided by NvChad)
+### Telescope (fuzzy finder)
 
 | Key | Action |
 |-----|--------|
@@ -160,7 +177,7 @@ nvim
 | `Space fd` | All diagnostics |
 | `Space ft` | Find all TODO/FIXME/HACK comments |
 
-### File Explorer (nvim-tree — provided by NvChad)
+### File Explorer (nvim-tree)
 
 | Key | Action |
 |-----|--------|
@@ -203,7 +220,7 @@ Write these in your code to highlight them:
 
 In the undotree panel: `j`/`k` to navigate, `Enter` to restore that state.
 
-### Git (gitsigns — provided by NvChad)
+### Git (gitsigns)
 
 | Key | Action |
 |-----|--------|
@@ -238,12 +255,10 @@ div.container>ul>li*3          → nested div with 3 list items
 table>tr*3>td*2                 → 3x2 table
 ```
 
-### NvChad Defaults (most useful)
+### Buffer Tabs
 
 | Key | Action |
 |-----|--------|
-| `Space th` | Change colorscheme |
-| `Space ch` | Cheatsheet (all keybindings) |
 | `Tab` | Next buffer tab |
 | `Shift+Tab` | Previous buffer tab |
 | `Space x` | Close current buffer |
