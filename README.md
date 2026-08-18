@@ -1,6 +1,6 @@
 # 🚀 Neovim Configuration
 
-A vanilla Neovim configuration (no framework — managed directly with `lazy.nvim`), tailored for
+A vanilla Neovim configuration (no framework, managed directly with `lazy.nvim`), tailored for
 Fullstack Development (Go, Next.js, React, TypeScript, and Tailwind CSS). Themed with
 **Aura Dracula Spirit (Soft)**, unified across kitty + tmux + nvim.
 
@@ -13,7 +13,7 @@ Fullstack Development (Go, Next.js, React, TypeScript, and Tailwind CSS). Themed
   - **Lua:** `stylua`
   - **Go:** `goimports-reviser`, `gofumpt`, `golines`
 - **Completion:** `nvim-cmp` (LSP, buffer, path, snippets via LuaSnip).
-- **Syntax Highlighting:** Treesitter (`master` branch — legacy config API).
+- **Syntax Highlighting:** Treesitter (`master` branch, legacy config API).
 - **File explorer, fuzzy finder, statusline, buffer tabs:** `nvim-tree`, `telescope`, `lualine`, `bufferline`.
 - **Seamless tmux navigation:** `Ctrl/Alt+hjkl` move across nvim splits and tmux panes as one grid.
 - **Copilot** inline suggestions, **Harpoon** quick file switching, **Undotree**, **git hunks**.
@@ -72,7 +72,7 @@ Configured in `lua/plugins/init.lua`:
 | **christoomey/vim-tmux-navigator** | Seamless nvim/tmux pane navigation |
 | **zbirenbaum/copilot.lua** | Inline AI suggestions |
 
-There is no dashboard/start screen — Neovim opens straight to an empty buffer.
+There is no dashboard/start screen; Neovim opens straight to an empty buffer.
 
 ---
 
