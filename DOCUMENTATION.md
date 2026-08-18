@@ -259,9 +259,12 @@ table>tr*3>td*2                 → 3x2 table
 
 | Key | Action |
 |-----|--------|
-| `Tab` | Next buffer tab |
-| `Shift+Tab` | Previous buffer tab |
+| `Tab` / `]b` | Next buffer tab |
+| `Shift+Tab` / `[b` | Previous buffer tab |
 | `Space x` | Close current buffer |
+
+`]b`/`[b` are bracket-convention alternatives (matching `[d`/`]d`, `[h`/`]h`, `[t`/`]t`) that
+don't rely on a working `Tab` keypress reaching the terminal.
 
 ---
 

@@ -23,6 +23,9 @@ map("n", "<leader>ya", "<cmd> %y+ <CR>", { desc = "Yank whole file" })
 -- ── Buffers ─────────────────────────────────────────────────
 map("n", "<Tab>", "<cmd> bnext <CR>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd> bprevious <CR>", { desc = "Previous buffer" })
+-- Bracket alternative (doesn't depend on the Tab key reaching the terminal)
+map("n", "]b", "<cmd> bnext <CR>", { desc = "Next buffer" })
+map("n", "[b", "<cmd> bprevious <CR>", { desc = "Previous buffer" })
 map("n", "<leader>x", "<cmd> bd <CR>", { desc = "Close buffer" })
 
 -- ── File Explorer ───────────────────────────────────────────

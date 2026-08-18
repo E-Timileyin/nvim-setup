@@ -100,8 +100,8 @@ The **Leader key** is set to `Space`.
 | `Ctrl/Alt + j` | Move to Bottom Window (crosses into tmux pane) |
 | `Ctrl/Alt + k` | Move to Top Window (crosses into tmux pane) |
 | `<leader> + x` | Close Current Buffer |
-| `Tab` | Next Buffer |
-| `Shift + Tab` | Previous Buffer |
+| `Tab` / `]b` | Next Buffer |
+| `Shift + Tab` / `[b` | Previous Buffer |
 
 ### 📝 Editing & Visual Mode
 | Key | Mode | Action |
