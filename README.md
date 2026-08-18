@@ -91,6 +91,9 @@ The **Leader key** is set to `Space`.
 | `<leader> + b` | Normal | New Buffer |
 | `<leader> + ya` | Normal | Yank Whole File |
 | `gc` / `gcc` | N/V | Toggle Comment (native Neovim 0.10+) |
+| `Ctrl + x` | Terminal | Exit Terminal Mode (back to Normal) |
+| `<leader> + z` | Normal | Toggle Zen Mode (Snacks) |
+| `<leader> + sn` | Normal | Dismiss Notifications (Snacks) |
 
 ### 🪟 Window & Buffer Management
 | Key | Action |
@@ -159,6 +162,7 @@ The **Leader key** is set to `Space`.
 | `<leader> + gs` | Stage Hunk |
 | `<leader> + gr` | Reset Hunk |
 | `<leader> + gt` | Git Status (Telescope) |
+| `<leader> + gg` | Open Lazygit |
 | `]h` / `[h` | Next/Previous Hunk |
 
 ### 🤖 Copilot (insert mode)

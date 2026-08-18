@@ -1,21 +1,21 @@
 -- ============================================================
 -- STATUSLINE — lua/configs/lualine.lua
--- Aura Dracula Spirit (Soft) themed
+-- Tatsumaki themed — matches kitty terminal (colors/tatsumaki.lua)
 -- ============================================================
 
 local c = {
-  bg = "#191521",
-  bg_dark = "#14111b",
-  fg = "#edecee",
-  fg_dark = "#adacae",
-  purple = "#a277ff",
-  cyan = "#82e2ff",
-  green = "#61ffca",
-  orange = "#ffca85",
-  red = "#ff6767",
+  bg = "#1E2B23",
+  bg_dark = "#1E2B23",
+  fg = "#C8D9C0",
+  fg_dark = "#5C6452",
+  purple = "#5CC2D9",
+  cyan = "#ACBF9F",
+  green = "#6EE384",
+  orange = "#EEE359",
+  red = "#E0543F",
 }
 
-local aura = {
+local tatsumaki = {
   normal = {
     a = { fg = c.bg, bg = c.purple, gui = "bold" },
     b = { fg = c.fg, bg = c.bg_dark },
@@ -34,16 +34,20 @@ local aura = {
 
 require("lualine").setup {
   options = {
-    theme = aura,
+    theme = tatsumaki,
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     globalstatus = true,
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diff", "diagnostics" },
-    lualine_c = { { "filename", path = 1 } },
-    lualine_x = { "filetype" },
+    lualine_b = {
+      { "branch", color = { fg = c.purple } },
+      "diff",
+      "diagnostics",
+    },
+    lualine_c = { { "filename", path = 1, color = { fg = c.purple } } },
+    lualine_x = { { "filetype", color = { fg = c.purple } } },
     lualine_y = { "progress" },
     lualine_z = { "location" },
   },

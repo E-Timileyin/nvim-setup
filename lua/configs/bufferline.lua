@@ -10,6 +10,7 @@ local bg = "#1E2B23"
 local tab_bg = "#2C4033"
 local border = "#5C6452"
 local purple = "#5CC2D9"
+local sage = "#ACBF9F"
 
 require("bufferline").setup {
   options = {
@@ -18,6 +19,9 @@ require("bufferline").setup {
     separator_style = "thin",
     show_buffer_close_icons = true,
     show_close_icon = false,
+    -- Left accent bar per tab: bright cursor color on the active buffer,
+    -- sage on the rest, instead of the default underline.
+    indicator = { icon = "▎", style = "icon" },
     offsets = {
       {
         filetype = "NvimTree",
@@ -55,7 +59,8 @@ require("bufferline").setup {
     separator = { fg = bg, bg = tab_bg },
     separator_visible = { fg = bg, bg = tab_bg },
     separator_selected = { fg = bg, bg = tab_bg },
-    indicator_selected = { bg = tab_bg },
+    indicator_selected = { fg = purple, bg = tab_bg },
+    indicator_visible = { fg = sage, bg = tab_bg },
     diagnostic = { bg = tab_bg },
     diagnostic_visible = { bg = tab_bg },
     diagnostic_selected = { bg = tab_bg },
