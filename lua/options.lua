@@ -20,10 +20,10 @@ opt.termguicolors = true
 
 -- ── Indenting ────────────────────────────────────────────────
 opt.expandtab = true
-opt.shiftwidth = 2
+opt.shiftwidth = 4
 opt.smartindent = true
-opt.tabstop = 2
-opt.softtabstop = 2
+opt.tabstop = 4
+opt.softtabstop = 4
 
 -- ── Search ───────────────────────────────────────────────────
 opt.ignorecase = true
@@ -47,11 +47,18 @@ opt.clipboard = "unnamedplus"  -- Sync yank/paste with system clipboard
 -- ── Line Numbers ────────────────────────────────────────────
 opt.relativenumber = true  -- Relative line numbers (jump with Nj / Nk)
 
+-- ── Glassmorphism (fully transparent — wallpaper shows through) ────
+opt.pumblend  = 0   -- 0 = fully opaque text on transparent bg (sharp, readable)
+opt.winblend  = 0   -- 0 = no blending artifacts with NONE backgrounds
+
 -- ── UI Performance ──────────────────────────────────────────
 opt.cursorlineopt = "number"  -- Only highlight the line number, not the whole line
 
 -- ── Wrap navigation across line boundaries ──────────────────
 opt.whichwrap:append "<>[]hl"
+
+-- ── Mouse / touchpad scroll speed (default ver:3) ───────────
+opt.mousescroll = "ver:6,hor:6"
 
 if vim.fn.has "nvim-0.10" == 1 then
   opt.smoothscroll = true

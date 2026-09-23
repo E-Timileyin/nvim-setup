@@ -24,3 +24,15 @@ autocmd("BufEnter", {
     end)
   end,
 })
+
+-- ── Breadcrumb header (path + line, under the tab bar) ─────
+-- Only on real file buffers — stays off nvim-tree, alpha, terminals, etc.
+autocmd({ "BufWinEnter", "BufEnter" }, {
+  callback = function()
+    if vim.bo.buftype == "" and vim.bo.filetype ~= "" then
+      vim.wo.winbar = "  %#WinBar#%f  %l"
+    else
+      vim.wo.winbar = nil
+    end
+  end,
+})

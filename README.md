@@ -1,10 +1,10 @@
-# 🚀 Neovim Configuration
+# Neovim Configuration
 
-A vanilla Neovim configuration (no framework, managed directly with `lazy.nvim`), tailored for
+A vanilla Neovim configuration (no framework — managed directly with `lazy.nvim`), tailored for
 Fullstack Development (Go, Next.js, React, TypeScript, and Tailwind CSS). Themed with
 **Aura Dracula Spirit (Soft)**, unified across kitty + tmux + nvim.
 
-## 🛠️ Features
+## Features
 - **Performance Optimized:** Uses `vim.loader` for fast startup.
 - **Modern LSP:** Neovim 0.11+ `vim.lsp.config` and `vim.lsp.enable` APIs.
 - **Fullstack Support:** Pre-configured for Go, TypeScript/JSX, Tailwind CSS, ESLint, Lua, HTML, and CSS.
@@ -13,14 +13,14 @@ Fullstack Development (Go, Next.js, React, TypeScript, and Tailwind CSS). Themed
   - **Lua:** `stylua`
   - **Go:** `goimports-reviser`, `gofumpt`, `golines`
 - **Completion:** `nvim-cmp` (LSP, buffer, path, snippets via LuaSnip).
-- **Syntax Highlighting:** Treesitter (`master` branch, legacy config API).
+- **Syntax Highlighting:** Treesitter (`master` branch — legacy config API).
 - **File explorer, fuzzy finder, statusline, buffer tabs:** `nvim-tree`, `telescope`, `lualine`, `bufferline`.
 - **Seamless tmux navigation:** `Ctrl/Alt+hjkl` move across nvim splits and tmux panes as one grid.
 - **Copilot** inline suggestions, **Harpoon** quick file switching, **Undotree**, **git hunks**.
 
 ---
 
-## 📥 Installation
+## Installation
 
 1. **Backup your current config:**
    ```bash
@@ -72,15 +72,15 @@ Configured in `lua/plugins/init.lua`:
 | **christoomey/vim-tmux-navigator** | Seamless nvim/tmux pane navigation |
 | **zbirenbaum/copilot.lua** | Inline AI suggestions |
 
-There is no dashboard/start screen; Neovim opens straight to an empty buffer.
+There is no dashboard/start screen — Neovim opens straight to an empty buffer.
 
 ---
 
-## ⌨️ Keybindings & Cheat Sheet
+## Keybindings & Cheat Sheet
 
 The **Leader key** is set to `Space`.
 
-### ⚡ Custom Essentials
+### Custom Essentials
 | Key | Mode | Action |
 | :--- | :--- | :--- |
 | `;` | Normal | Enter Command Mode (replaces `:`) |
@@ -95,7 +95,7 @@ The **Leader key** is set to `Space`.
 | `<leader> + z` | Normal | Toggle Zen Mode (Snacks) |
 | `<leader> + sn` | Normal | Dismiss Notifications (Snacks) |
 
-### 🪟 Window & Buffer Management
+### Window & Buffer Management
 | Key | Action |
 | :--- | :--- |
 | `Ctrl/Alt + h` | Move to Left Window (crosses into tmux pane) |
@@ -106,7 +106,7 @@ The **Leader key** is set to `Space`.
 | `Tab` / `]b` | Next Buffer |
 | `Shift + Tab` / `[b` | Previous Buffer |
 
-### 📝 Editing & Visual Mode
+### Editing & Visual Mode
 | Key | Mode | Action |
 | :--- | :--- | :--- |
 | `<` | Visual | Indent Left (stays in selection) |
@@ -114,7 +114,7 @@ The **Leader key** is set to `Space`.
 | `J` | Visual | Move selected block **Down** |
 | `K` | Visual | Move selected block **Up** |
 
-### 📂 File & Project Navigation
+### File & Project Navigation
 | Key | Action |
 | :--- | :--- |
 | `Ctrl + n` | Toggle File Tree (NvimTree) |
@@ -126,7 +126,7 @@ The **Leader key** is set to `Space`.
 | `<leader> + fo` | Recent Files |
 | `<leader> + ma` | Marks |
 
-### 🔍 LSP & Diagnostics
+### LSP & Diagnostics
 | Key | Action |
 | :--- | :--- |
 | `[d` | Previous Diagnostic (Error/Warn) |
@@ -144,7 +144,7 @@ The **Leader key** is set to `Space`.
 | `<leader> + fS` | Workspace Symbols |
 | `<leader> + fd` | Telescope Diagnostics |
 
-### 🗂 Harpoon / Undotree / TODO
+### Harpoon / Undotree / TODO
 | Key | Action |
 | :--- | :--- |
 | `<leader> + ha` | Harpoon: add file |
@@ -154,7 +154,7 @@ The **Leader key** is set to `Space`.
 | `<leader> + ft` | Find TODOs (Telescope) |
 | `]t` / `[t` | Next/Previous TODO |
 
-### 🔀 Git (gitsigns)
+### Git (gitsigns)
 | Key | Action |
 | :--- | :--- |
 | `<leader> + gp` | Preview Hunk |
@@ -165,7 +165,7 @@ The **Leader key** is set to `Space`.
 | `<leader> + gg` | Open Lazygit |
 | `]h` / `[h` | Next/Previous Hunk |
 
-### 🤖 Copilot (insert mode)
+### Copilot (insert mode)
 | Key | Action |
 | :--- | :--- |
 | `Ctrl + y` | Accept suggestion |
@@ -176,7 +176,7 @@ The **Leader key** is set to `Space`.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 ~/.config/nvim/

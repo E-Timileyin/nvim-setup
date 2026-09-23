@@ -17,7 +17,7 @@ local c = {
   bg = "#191521",
   bg_dark = "#14111b",
   bg_darker = "#100b15",
-  bg_float = "#140e1a",
+  bg_float = "NONE",
   bg_select = "#2e2b38",
   bg_hover = "#3b334b",
   fg = "#edecee",
@@ -47,10 +47,10 @@ hl("NormalFloat", { fg = c.fg, bg = c.bg_float })
 hl("FloatBorder", { fg = c.border, bg = c.bg_float })
 hl("FloatTitle", { fg = c.purple, bg = c.bg_float, bold = true })
 hl("SignColumn", { bg = c.bg })
-hl("ColorColumn", { bg = c.bg_select })
-hl("Cursor", { fg = c.bg, bg = c.purple })
-hl("CursorLine", { bg = c.bg_dark })
-hl("CursorLineNr", { fg = c.purple, bold = true })
+hl("ColorColumn", { bg = c.none })
+hl("Cursor", { fg = "#0D0F14", bg = c.purple })
+hl("CursorLine", { bg = c.none })
+hl("CursorLineNr", { fg = c.purple, bg = c.none, bold = true })
 hl("LineNr", { fg = c.comment })
 hl("Visual", { bg = c.bg_select })
 hl("VisualNOS", { bg = c.bg_select })

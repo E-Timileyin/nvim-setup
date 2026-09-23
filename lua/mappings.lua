@@ -111,3 +111,14 @@ map("n", "<leader>gr", function() require("gitsigns").reset_hunk() end, { desc =
 map("n", "<leader>gt", "<cmd> Telescope git_status <CR>", { desc = "Git status (telescope)" })
 map("n", "]h", function() require("gitsigns").nav_hunk "next" end, { desc = "Next git hunk" })
 map("n", "[h", function() require("gitsigns").nav_hunk "prev" end, { desc = "Previous git hunk" })
+map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
+
+-- ── Toggles (leader + t) ───────────────────────────────────
+map("n", "<leader>tl", function() require("configs.learn").toggle() end, { desc = "Toggle learn/work mode" })
+map("n", "<leader>ts", "<cmd> SyntaxToggle <CR>", { desc = "Toggle muted syntax colors" })
+map("n", "<leader>tp", function() require("precognition").toggle() end, { desc = "Toggle motion hints" })
+map("n", "<leader>th", "<cmd> Hardtime toggle <CR>", { desc = "Toggle hardtime (motion coach)" })
+
+-- ── Snacks (zen mode, notification history) ────────────────
+map("n", "<leader>z", function() Snacks.zen() end, { desc = "Zen mode" })
+map("n", "<leader>sn", function() Snacks.notifier.hide() end, { desc = "Dismiss notifications" })

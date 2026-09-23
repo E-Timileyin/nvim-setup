@@ -17,7 +17,7 @@ local c = {
   bg = "#1E2B23",
   bg_dark = "#1E2B23",
   bg_darker = "#1E2B23",
-  bg_float = "#1E2B23",
+  bg_float = "NONE",
   bg_select = "#2C4033",
   bg_hover = "#5C6452",
   fg = "#C8D9C0",
@@ -33,6 +33,7 @@ local c = {
   purple = "#5CC2D9",
   pink = "#B48CE8",
   border = "#5C6452",
+  bg_indent = "#24332A",
   none = "NONE",
 }
 
@@ -47,10 +48,10 @@ hl("NormalFloat", { fg = c.fg, bg = c.bg_float })
 hl("FloatBorder", { fg = c.border, bg = c.bg_float })
 hl("FloatTitle", { fg = c.purple, bg = c.bg_float, bold = true })
 hl("SignColumn", { bg = c.bg })
-hl("ColorColumn", { bg = c.bg_select })
-hl("Cursor", { fg = c.bg, bg = c.purple })
-hl("CursorLine", { bg = c.bg_dark })
-hl("CursorLineNr", { fg = c.purple, bold = true })
+hl("ColorColumn", { bg = c.none })
+hl("Cursor", { fg = "#0D0F14", bg = c.purple })
+hl("CursorLine", { bg = c.none })
+hl("CursorLineNr", { fg = c.purple, bg = c.none, bold = true })
 hl("LineNr", { fg = c.comment })
 hl("Visual", { bg = c.bg_select })
 hl("VisualNOS", { bg = c.bg_select })
@@ -237,6 +238,6 @@ hl("AlphaButton", { fg = c.fg })
 hl("AlphaShortcut", { fg = c.purple, bold = true })
 hl("AlphaFooter", { fg = c.comment, italic = true })
 
--- ── Indent guides ────────────────────────────────────────────
-hl("IblIndent", { fg = "#33473A" })
-hl("IblScope", { fg = c.bg_hover })
+-- ── Indent guides (filled background bands, not line glyphs) ─
+hl("IblIndent", { bg = c.bg_indent, fg = c.none })
+hl("IblScope", { bg = c.bg_select, fg = c.none })

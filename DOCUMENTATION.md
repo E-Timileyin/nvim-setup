@@ -13,13 +13,18 @@ nvim
 # 2. Install all LSP servers and formatters
 :MasonInstallAll
 
-# 3. Authenticate GitHub Copilot
+# 3. Rust formatting/linting (rustfmt + clippy are NOT Mason packages —
+#    they ship with the Rust toolchain itself)
+sudo dnf install rustfmt clippy      # Fedora (this machine)
+# or: rustup component add rustfmt clippy   # if using rustup instead
+
+# 4. Authenticate GitHub Copilot
 :Copilot auth
 
-# 4. Verify LSP servers are running (open a .ts or .go file, then)
+# 5. Verify LSP servers are running (open a .rs, .java, .ts, or .go file, then)
 :LspInfo
 
-# 5. Verify treesitter parsers
+# 6. Verify treesitter parsers
 :TSInstallInfo
 ```
 
@@ -95,11 +100,30 @@ NvChad UI features, and this config no longer depends on NvChad.
 | Tailwind | tailwindcss | — | — |
 | JSON | — | prettier | json |
 
-### Backend
+### Backend / Systems
 | Language | LSP | Formatter | Treesitter |
 |----------|-----|-----------|------------|
 | Go | gopls | goimports-reviser, gofumpt, golines | go, gomod, gosum |
+| Rust | rust_analyzer (clippy check-on-save, all cargo features) | rustfmt* | rust |
+| Java | jdtls | google-java-format | java |
 | Lua | lua_ls | stylua | lua, luadoc |
+
+\* `rustfmt`/`clippy` come from the Rust toolchain, not Mason — see First-Time Setup step 3.
+For advanced Rust workflows (inline runnables, integrated debugging via codelldb) consider
+adding [rustaceanvim](https://github.com/mrcjkb/rustaceanvim) later; for advanced Java
+refactors/tests/debugging consider [nvim-jdtls](https://github.com/mfussenegger/nvim-jdtls).
+Neither is required for day-to-day editing — plain `jdtls`/`rust_analyzer` already give
+diagnostics, completion, go-to-definition, and formatting.
+
+### Cloud / Infra
+| Language | LSP | Formatter | Treesitter |
+|----------|-----|-----------|------------|
+| Dockerfile | docker_language_server | — | dockerfile |
+| docker-compose (`*compose*.y(a)ml`) | docker_language_server (as `yaml.docker-compose`) | prettier | yaml |
+| Terraform / HCL | terraformls | terraform_fmt (`terraform fmt`) | terraform, hcl |
+| YAML | yamlls | prettier | yaml |
+| JSON | jsonls | prettier | json |
+| Bash | bashls | — | bash |
 
 ---
 
@@ -259,12 +283,9 @@ table>tr*3>td*2                 → 3x2 table
 
 | Key | Action |
 |-----|--------|
-| `Tab` / `]b` | Next buffer tab |
-| `Shift+Tab` / `[b` | Previous buffer tab |
+| `Tab` | Next buffer tab |
+| `Shift+Tab` | Previous buffer tab |
 | `Space x` | Close current buffer |
-
-`]b`/`[b` are bracket-convention alternatives (matching `[d`/`]d`, `[h`/`]h`, `[t`/`]t`) that
-don't rely on a working `Tab` keypress reaching the terminal.
 
 ---
 
@@ -360,6 +381,8 @@ claude
 |---------|-----|
 | Autocomplete not working | `:LspInfo` — check if server is attached. Run `:MasonInstallAll` if server missing |
 | Formatter not working | `:ConformInfo` — check if formatter is found. Mason should install it |
+| Rust save doesn't format | `rustfmt` isn't a Mason package — install it via `sudo dnf install rustfmt clippy` (or `rustup component add rustfmt clippy`) |
+| jdtls slow/erroring on first open of a Java project | Normal — jdtls indexes the project into a per-project workspace under `~/.cache/nvim/jdtls/workspace/`. Wait for indexing, then `:LspRestart` if needed |
 | Treesitter highlighting broken | `:TSUpdate` to update parsers |
 | Copilot not suggesting | `:Copilot status` — may need `:Copilot auth` |
 | Plugin errors after update | `:Lazy restore` to rollback. Check `lazy-lock.json` in git |
