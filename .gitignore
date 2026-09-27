@@ -1,0 +1,5 @@
+# pi coding-agent project state — machine-specific, not nvim config
+.pi/
+
+# stray editor backups
+*.bak

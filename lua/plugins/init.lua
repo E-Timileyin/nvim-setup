@@ -94,9 +94,16 @@ return {
 	},
 
 	-- ── LSP (language intelligence) ───────────────────────────
+	-- Loaded eagerly on purpose. `vim.lsp.enable()` installs a single
+	-- shared FileType autocmd (vim/lsp.lua:646) and only replays it for
+	-- buffers that already had their filetype set when it runs. Lazy-loading
+	-- this on BufReadPre loses that race: the plugin load is deferred to a
+	-- vim.schedule, FileType fires first, and no server ever attaches to the
+	-- file that was opened on the command line. Cost of eager loading is one
+	-- config table plus one autocmd.
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
+		lazy = false,
 		dependencies = { "hrsh7th/cmp-nvim-lsp", "b0o/SchemaStore.nvim" },
 		config = function()
 			require("configs.lspconfig")

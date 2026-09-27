@@ -734,7 +734,7 @@ Prefix = **`C-a`**.
 | `A-1`…`A-9` | jump to window |
 | `C-a ,` | rename window |
 | `C-a S` | pick session |
-| `C-a C-c` | new session |
+| `C-a N` | new session |
 | `C-a $` | rename session |
 | `C-a d` | detach |
 | `C-a [` | copy mode (vim keys, `v` select, `y` yank) |
